@@ -13,6 +13,8 @@ gem "puma", ">= 5.0"
 
 gem "solargraph"
 gem "solargraph-rails"
+gem "devise"
+gem "devise-api"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
