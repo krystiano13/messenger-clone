@@ -20,4 +20,27 @@ class MessagesController < ApplicationController
             }, status: :ok
         end
     end
+
+    def get_one
+        @from = User.find_by(username: params[:from])
+        @to = User.find_by(username: params[:to])
+
+        unless @from.present? or @to.present?
+            return render json: {
+                :error => "Conversation not found"
+            }, status: 404
+        end
+
+        @messages = Message.where(from: @user).and(Message.where(to: @user))
+
+         if @messages.present?
+            return render json: {
+                :messages => @messages
+            }, status: :ok
+        else
+            return render json: {
+                :messages => []
+            }, status: :ok
+        end
+    end
 end

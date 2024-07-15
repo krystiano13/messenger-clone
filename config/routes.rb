@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "api/messages/all/:username", to: "messages#index", as: :messages_all
+  get "api/messages/:from/:to", to: "messages#get_one", as: :messages_one
 end
