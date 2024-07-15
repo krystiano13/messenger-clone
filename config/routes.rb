@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  get "api/messages/all/:username", to: "messages#index", as: :messages_all
 end
