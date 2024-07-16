@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 
   get "api/groups/:name", to: "groups#index", as: :groups
   post "api/groups/:user_id", to: "groups#create", as: :groups_create
+  patch "api/groups/:id", to: "groups#update", as: :groups_update
 end

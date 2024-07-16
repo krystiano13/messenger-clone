@@ -43,6 +43,28 @@ class GroupsController < ApplicationController
 
     end
 
+    def update
+        @group = Group.find(params[:id])
+
+        if @group.present?
+            begin
+                @group.update!(group_params)
+                return render json: {
+                    :info => "Group renamed",
+                    :group => @group
+                }, status: :ok
+            rescue
+                return render json: {
+                    :info => "Server Error"
+                }, status: 500
+            end
+        else
+            return render json: {
+                :info => "Group not found"
+            }, status: 404
+        end
+    end
+
     private
     def group_params
         return params.require(:group).permit(:name)
