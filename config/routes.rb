@@ -11,4 +11,5 @@ Rails.application.routes.draw do
 
   get "api/messages/all/:username", to: "messages#index", as: :messages_all
   get "api/messages/:from/:to", to: "messages#get_one", as: :messages_one
+  post "api/messages", to: "messages#create", as: :messages_create
 end

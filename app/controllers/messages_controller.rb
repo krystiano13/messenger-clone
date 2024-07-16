@@ -43,4 +43,26 @@ class MessagesController < ApplicationController
             }, status: :ok
         end
     end
+
+    def create
+        message = Message.new(message_params)
+
+        begin
+            message.save!
+            return render json: {
+                :status => "Message Created",
+                :message => message
+            }, status: :ok
+        rescue
+            return render json: {
+                :status => "Message could not be created",
+                :errors => message.errors
+            }, status: :unprocessable_entity
+        end
+    end
+
+    private
+    def message_params
+        return params.require(:message).permit(:from, :to, :content)
+    end
 end
