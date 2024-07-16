@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   patch "api/messages/:id", to: "messages#update", as: :messages_update
   delete "api/messages/:id", to: "messages#destroy", as: :messages_destroy
 
+  get "api/groups/:name", to: "groups#index", as: :groups
   post "api/groups/:user_id", to: "groups#create", as: :groups_create
 end

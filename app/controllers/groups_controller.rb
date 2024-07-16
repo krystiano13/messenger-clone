@@ -1,7 +1,22 @@
 class GroupsController < ApplicationController
+    def index
+        name = params[:name]
+        @groups = Group.where("name LIKE ?", "%#{name}%")
+
+        if @groups.present?
+            return render json: {
+                :groups => @groups
+            }, status: :ok
+        else
+            return render json: {
+                :groups => Array.new
+            }, status: :ok
+        end
+    end
+
     def create
         group = Group.new(group_params)
-        @user = User.find(group_member_params)
+        @user = User.find_by(id: params[:user_id])
 
         unless group.save! or @user.present?
             return render json: {
@@ -11,7 +26,7 @@ class GroupsController < ApplicationController
             }, status: :unprocessable_entity
         end
 
-        group_admin = GroupMember.new(role: "admin", user_id: group_member_params, group_id: group.id)
+        group_admin = GroupMember.new(role: "admin", user_id: params[:user_id], group_id: group.id)
         
         if group_admin.save!
             return render json: {
