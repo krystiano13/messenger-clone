@@ -65,6 +65,27 @@ class GroupsController < ApplicationController
         end
     end
 
+    def destroy
+        @group = Group.find(params[:id])
+
+        if @group.present?
+            begin
+                @group.destroy!
+                return render json: {
+                    :info => "Group Destroyed",
+                }, status: :ok
+            rescue
+                return render json: {
+                    :info => "Server Error"
+                }, status: 500
+            end
+        else
+            return render json: {
+                :info => "Group not found"
+            }, status: 404
+        end
+    end
+
     private
     def group_params
         return params.require(:group).permit(:name)
