@@ -61,8 +61,35 @@ class MessagesController < ApplicationController
         end
     end
 
+    def update
+        @message = Message.find(params[:id])
+
+        if @message.present?
+            begin
+                @message.update!(message_update_params)
+                return render json: {
+                    :status => "Message Updated",
+                    :message => @message
+                }
+            rescue
+                return render json: {
+                    :status => "Server Error"
+                }, status: 500
+            end
+        else
+            return render json: {
+                :error => "Message Not Found"
+            }, status: 404
+        end
+    end
+
     private
     def message_params
         return params.require(:message).permit(:from, :to, :content)
+    end
+
+    private
+    def message_update_params
+        return params.require(:message).permit(:content)
     end
 end
