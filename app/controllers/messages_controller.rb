@@ -83,6 +83,16 @@ class MessagesController < ApplicationController
         end
     end
 
+    def destroy
+        @message = Message.find(params[:id])
+        
+        if @message.present?
+            @message.destroy
+        end
+
+        return render json: {}, status: 201
+    end
+
     private
     def message_params
         return params.require(:message).permit(:from, :to, :content)
