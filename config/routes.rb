@@ -23,4 +23,7 @@ Rails.application.routes.draw do
 
   get "api/group_members/:group_id", to: "group_members#index", as: :group_members
   delete "api/group_members/:group_id/:id", to: "group_members#destroy", as: :group_members_destroy
+
+  get "api/group/invites/:user_id", to: "group_invites#index", as: :group_invites
+  get "api/group/invites/g/:group_id", to: "group_invites#get_by_group", as: :group_invites_by_group
 end
