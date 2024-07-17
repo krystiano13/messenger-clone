@@ -41,6 +41,22 @@ class GroupInvitesController < ApplicationController
         end
     end
 
+    def destroy
+        @invite = Invite.find_by(id: params[:id])
+
+        begin 
+            @invite.destroy
+
+            return render json: {
+                :info => "Invite canceled"
+            }, status: :ok
+        rescue
+            return render json: {
+                :error => "Server Error"
+            }, stautus: 500
+        end
+    end
+
     private 
     def group_invite_params
         return params.permit(:group_id, :user_id)
