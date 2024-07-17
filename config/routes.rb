@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   delete "api/groups/:id", to: "groups#destroy", as: :groups_destroy
 
   get "api/group_members/:group_id", to: "group_members#index", as: :group_members
+  post "api/group_members/", to: "group_members#create", as: :group_members_create
   delete "api/group_members/:group_id/:id", to: "group_members#destroy", as: :group_members_destroy
 
   get "api/group/invites/:user_id", to: "group_invites#index", as: :group_invites

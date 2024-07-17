@@ -7,6 +7,20 @@ class GroupMembersController < ApplicationController
         }, status: :ok
     end
 
+    def create
+        @gm = GroupMember.new(member_params)
+        
+        if @gm.save!
+            return render json: {
+                :info => "Group Member Created"
+            }, status: :ok
+        else
+            return render json: {
+                :errors => @gm.errors
+            }, status: :unprocessable_entity
+        end
+    end
+
     def destroy
         @member = GroupMember.where(group_id: params[:group_id]).and(GroupMember.where(id: params[:id]))
         
@@ -29,5 +43,10 @@ class GroupMembersController < ApplicationController
                 :error => "Member not found"
             }, status: 404
         end
+    end
+
+    private
+    def member_params
+        return params.permit(:role, :group_id, :user_id)
     end
 end
