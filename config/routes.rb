@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   post "api/groups/:user_id", to: "groups#create", as: :groups_create
   patch "api/groups/:id", to: "groups#update", as: :groups_update
   delete "api/groups/:id", to: "groups#destroy", as: :groups_destroy
+
+  get "api/group_members/:group_id", to: "group_members#index", as: :group_members
 end
