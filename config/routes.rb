@@ -26,4 +26,5 @@ Rails.application.routes.draw do
 
   get "api/group/invites/:user_id", to: "group_invites#index", as: :group_invites
   get "api/group/invites/g/:group_id", to: "group_invites#get_by_group", as: :group_invites_by_group
+  post "api/group/invites/", to: "group_invites#create", as: :group_invites_create
 end

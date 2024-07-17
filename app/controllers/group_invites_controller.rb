@@ -23,4 +23,26 @@ class GroupInvitesController < ApplicationController
             :invites => invite_with_info
         }, status: :ok
     end
+
+    def create
+        invite = GroupInvite.new(group_invite_params)
+
+        begin
+            invite.save!
+            return render json: {
+                :info => "Invite sent !",
+                :user => User.find_by(id: params[:user_id]),
+                :group => Group.find_by(id: params[:group_id])
+            }, status: :ok
+        rescue
+            return render json: {
+                :errors => invite.errors
+            }, status: :unprocessable_entity
+        end
+    end
+
+    private 
+    def group_invite_params
+        return params.permit(:group_id, :user_id)
+    end
 end
