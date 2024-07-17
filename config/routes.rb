@@ -32,4 +32,6 @@ Rails.application.routes.draw do
 
   get "api/group/messages/:group_id", to: "group_messages#index", as: :group_msg
   post "api/group/messages/", to: "group_messages#create", as: :group_msg_create
+  patch "api/group/messages/:id", to: "group_messages#update", as: :group_msg_update
+  delete "api/group/messages/:id", to: "group_messages#destroy", as: :group_msg_destroy
 end

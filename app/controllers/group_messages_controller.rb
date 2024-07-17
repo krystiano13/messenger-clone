@@ -22,6 +22,28 @@ class GroupMessagesController < ApplicationController
         end
     end
 
+    def update
+        @message = GroupMessage.find_by(id: params[:id])
+
+        if @message.present?
+            begin
+                @message.update!(message_params)
+            rescue
+                return render json: {
+                    :error => "Server Error"
+                }, status: 500
+            end
+        else
+            return render json: {
+                :error => "Message not found"
+            }, status: 404
+        end
+    end
+
+    def destroy
+
+    end
+
     private
     def message_params
         return params.permit(:user_id, :group_id, :username, :content)
