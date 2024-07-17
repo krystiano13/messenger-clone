@@ -28,6 +28,10 @@ class GroupMessagesController < ApplicationController
         if @message.present?
             begin
                 @message.update!(message_params)
+                return render json: {
+                    :info => "Message Updated",
+                    :message => @message
+                }, status: :ok
             rescue
                 return render json: {
                     :error => "Server Error"
@@ -41,7 +45,24 @@ class GroupMessagesController < ApplicationController
     end
 
     def destroy
+        @message = GroupMessage.find_by(id: params[:id])
 
+        if @message.present?
+            begin
+                @message.destroy!(message_params)
+                 return render json: {
+                    :info => "Message Deleted"
+                }, status: :ok
+            rescue
+                return render json: {
+                    :error => "Server Error"
+                }, status: 500
+            end
+        else
+            return render json: {
+                :error => "Message not found"
+            }, status: 404
+        end
     end
 
     private
