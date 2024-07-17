@@ -14,6 +14,21 @@ class GroupsController < ApplicationController
         end
     end
 
+    def get_one
+        @group = Group.find(params[:id])
+
+        if @group.present?
+            return render json: {
+                :group => @group,
+                :members => @group.group_member
+            }, status: :ok
+        else
+            return render json: {
+                :error => "Group not found"
+            }, status: 404
+        end
+    end
+
     def create
         group = Group.new(group_params)
         @user = User.find_by(id: params[:user_id])
