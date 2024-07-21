@@ -34,4 +34,8 @@ Rails.application.routes.draw do
   post "api/group/messages/", to: "group_messages#create", as: :group_msg_create
   patch "api/group/messages/:id", to: "group_messages#update", as: :group_msg_update
   delete "api/group/messages/:id", to: "group_messages#destroy", as: :group_msg_destroy
+
+  get "api/friends/invites/:user_id", to: "friend_invites#index", as: :friend_invites
+  post "api/friends/invites/", to: "friend_invites#create", as: :friend_invites_create
+  delete "api/friends/invites/:id", to: "friend_invites#destroy", as: :friend_invites_destroy
 end
