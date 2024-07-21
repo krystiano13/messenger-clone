@@ -12,6 +12,14 @@ class FriendController < ApplicationController
     end
 
     def destroy
+        @friend = Friend.find(:params[:id])
 
+        if @friend.present?
+            @friend.destroy!
+        end
+
+        return render json: {
+            :info => "Friend record destroyed"
+        }, status: :ok
     end
 end
