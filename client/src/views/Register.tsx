@@ -1,14 +1,49 @@
+import { motion } from "framer-motion";
+
 export function Register() {
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
-      <section className="w-[95vw] md:w-auto md:max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-        <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
+      <motion.section
+        transition={{
+          duration: 0.35,
+          type: "spring",
+          bounce: 0.5,
+        }}
+        animate={{
+          opacity: [0, 1],
+        }}
+        className="w-[95vw] md:w-auto md:max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
+      >
+        <motion.h2
+          transition={{
+            duration: 0.35,
+            type: "spring",
+            bounce: 0.5,
+            delay: 0.1,
+          }}
+          animate={{
+            opacity: [0, 1],
+            y: [30, 0],
+          }}
+          className="text-lg font-semibold text-gray-700 capitalize dark:text-white"
+        >
           Create new account
-        </h2>
+        </motion.h2>
 
         <form>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <div>
+            <motion.div
+              transition={{
+                duration: 0.35,
+                type: "spring",
+                bounce: 0.5,
+                delay: 0.2,
+              }}
+              animate={{
+                opacity: [0, 1],
+                y: [30, 0],
+              }}
+            >
               <label className="text-gray-700 dark:text-gray-200">
                 Username
               </label>
@@ -17,9 +52,20 @@ export function Register() {
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              transition={{
+                duration: 0.35,
+                type: "spring",
+                bounce: 0.5,
+                delay: 0.3,
+              }}
+              animate={{
+                opacity: [0, 1],
+                y: [30, 0],
+              }}
+            >
               <label className="text-gray-700 dark:text-gray-200">
                 Email Address
               </label>
@@ -28,9 +74,20 @@ export function Register() {
                 type="email"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              transition={{
+                duration: 0.35,
+                type: "spring",
+                bounce: 0.5,
+                delay: 0.4,
+              }}
+              animate={{
+                opacity: [0, 1],
+                y: [30, 0],
+              }}
+            >
               <label className="text-gray-700 dark:text-gray-200">
                 Password
               </label>
@@ -39,9 +96,20 @@ export function Register() {
                 type="password"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              transition={{
+                duration: 0.35,
+                type: "spring",
+                bounce: 0.5,
+                delay: 0.5,
+              }}
+              animate={{
+                opacity: [0, 1],
+                y: [30, 0],
+              }}
+            >
               <label className="text-gray-700 dark:text-gray-200">
                 Password Confirmation
               </label>
@@ -50,16 +118,28 @@ export function Register() {
                 type="password"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
-            </div>
+            </motion.div>
           </div>
 
           <div className="flex justify-end mt-6">
-            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+            <motion.button
+              transition={{
+                duration: 0.35,
+                type: "spring",
+                bounce: 0.5,
+                delay: 0.6,
+              }}
+              animate={{
+                opacity: [0, 1],
+                y: [30, 0],
+              }}
+              className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            >
               Register
-            </button>
+            </motion.button>
           </div>
         </form>
-      </section>
+      </motion.section>
     </div>
   );
 }
