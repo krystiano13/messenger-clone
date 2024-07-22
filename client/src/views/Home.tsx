@@ -1,5 +1,6 @@
 import { HamburgerButton } from "../components/Home/HamburgerButton";
 import { Searchbar } from "../components/Home/Searchbar";
+import { FriendTab } from "../components/Home/FriendTab";
 
 export function Home() {
   return (
@@ -10,8 +11,8 @@ export function Home() {
           <h1 className="text-center text-white text-2xl">Chats</h1>
         </div>
         <Searchbar />
-        <div id="chats">
-
+        <div id="chats" className="h-fit flex-1 overflow-y-auto">
+          <FriendTab />
         </div>
       </section>
       <section className="w-2/3"></section>
