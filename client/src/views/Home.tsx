@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { HamburgerButton } from "../components/Home/HamburgerButton";
 import { Searchbar } from "../components/Home/Searchbar";
 import { FriendTab } from "../components/Home/FriendTab";
-import { Chat } from "../components/Chat/Chat";
+import { ChatSection } from "../components/Home/ChatSection";
 
 export function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
@@ -46,33 +46,10 @@ export function Home() {
           <FriendTab open={() => setChatOpen(true)} />
         </motion.div>
       </section>
-      <section
-        className={`${
-          !chatOpen &&
-          "fixed md:static translate-x-[100vw] md:translate-x-[0vw] md:flex"
-        } ${
-          chatOpen && "w-full translate-x-[0vw] fixed md:static"
-        } h-full transition-transform md:w-2/3 items-center justify-center`}
-      >
-        {chatOpen && <Chat close={() => setChatOpen(false)} />}
-        {!chatOpen && (
-          <motion.h1
-            transition={{
-              duration: 0.5,
-              type: "spring",
-              bounce: 0.5,
-              delay: 0.35,
-            }}
-            animate={{
-              opacity: [0, 1],
-              y: [30, 0],
-            }}
-            className="text-white font-medium text-5xl"
-          >
-            Messenger clone
-          </motion.h1>
-        )}
-      </section>
+      <ChatSection
+        chatOpen={chatOpen}
+        setChatOpen={(value: boolean) => setChatOpen(value)}
+      />
     </div>
   );
 }
