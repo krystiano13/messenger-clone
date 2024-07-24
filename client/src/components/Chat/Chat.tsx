@@ -1,4 +1,5 @@
 import { Message } from "./Message";
+import { ChatForm } from "./ChatForm";
 
 interface Props {
   close: () => void;
@@ -6,7 +7,7 @@ interface Props {
 
 export const Chat: React.FC<Props> = ({ close }) => {
   return (
-    <div className="w-full h-full max-h-[100vh] overflow-y-auto flex flex-col bg-slate-800 justify-start p-1">
+    <div className="w-full h-full overflow-x-hidden relative max-h-[100vh] overflow-y-auto flex flex-col bg-slate-800 justify-start p-1">
       <section className="flex justify-center items-center p-4 shadow-md gap-4">
         <button
           onClick={close}
@@ -20,6 +21,7 @@ export const Chat: React.FC<Props> = ({ close }) => {
       </section>
       <Message me={false} content="Hello ! What's up ?" name="John Doe" />
       <Message me={true} content="Hello ! Everything's good" />
+      <ChatForm />ss
     </div>
   );
 };
