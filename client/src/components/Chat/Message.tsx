@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 interface Props {
   me: boolean;
   name?: string;
@@ -6,7 +8,13 @@ interface Props {
 
 export const Message: React.FC<Props> = ({ me, content, name }) => {
   return (
-    <div className={`w-full p-2 flex flex-col ${me ? "items-end" : "items-start"}`}>
+    <motion.div
+      animate={{
+        opacity: [0,1],
+        y: [30, 0]
+      }}
+      className={`w-full p-2 flex flex-col ${me ? "items-end" : "items-start"}`}
+    >
       <h3 className={`font-light text-slate-300 text-md ${me && "text-right"}`}>
         {me ? "Me" : name}
       </h3>
@@ -17,6 +25,6 @@ export const Message: React.FC<Props> = ({ me, content, name }) => {
       >
         <span className="text-white">{content}</span>
       </div>
-    </div>
+    </motion.div>
   );
 };
