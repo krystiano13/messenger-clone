@@ -1,3 +1,5 @@
+import { Message } from "./Message";
+
 export function Chat() {
   return (
     <div className="w-full h-full max-h-[100vh] overflow-y-auto flex flex-col justify-start">
@@ -6,6 +8,7 @@ export function Chat() {
           John Doe
         </h2>
       </section>
+      <Message me={true} content="Hello ! What's up ?" name="John Doe" />
     </div>
   );
 }
