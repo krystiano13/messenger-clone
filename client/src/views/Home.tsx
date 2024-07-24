@@ -7,7 +7,7 @@ import { FriendTab } from "../components/Home/FriendTab";
 import { Chat } from "../components/Chat/Chat";
 
 export function Home() {
-  const [chatOpen, setChatOpen] = useState<boolean>(true);
+  const [chatOpen, setChatOpen] = useState<boolean>(false);
   return (
     <div className="w-full h-full flex justify-between overflow-hidden">
       <section className="w-full md:w-1/3 flex flex-col gap-5 bg-gray-900 bg-opacity-25 p-4">
@@ -46,7 +46,14 @@ export function Home() {
           <FriendTab />
         </motion.div>
       </section>
-      <section className="hidden md:w-2/3 md:flex items-center justify-center">
+      <section
+        className={`${
+          !chatOpen &&
+          "fixed md:static translate-x-[100vw] md:translate-x-[0vw] md:flex"
+        } ${
+          chatOpen && "w-full translate-x-[0vw] fixed md:static"
+        } h-full transition-transform md:w-2/3 items-center justify-center`}
+      >
         {chatOpen && <Chat />}
         {!chatOpen && (
           <motion.h1
