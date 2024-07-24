@@ -54,7 +54,7 @@ export function Home() {
           chatOpen && "w-full translate-x-[0vw] fixed md:static"
         } h-full transition-transform md:w-2/3 items-center justify-center`}
       >
-        {chatOpen && <Chat />}
+        {chatOpen && <Chat close={() => setChatOpen(false)} />}
         {!chatOpen && (
           <motion.h1
             transition={{
