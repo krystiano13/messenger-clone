@@ -21,7 +21,7 @@ export const Chat: React.FC<Props> = ({ close }) => {
       </section>
       <Message me={false} content="Hello ! What's up ?" name="John Doe" />
       <Message me={true} content="Hello ! Everything's good" />
-      <ChatForm />ss
+      <ChatForm />
     </div>
   );
 };
