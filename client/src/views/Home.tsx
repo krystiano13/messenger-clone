@@ -43,7 +43,7 @@ export function Home() {
           id="chats"
           className="h-fit flex-1 overflow-y-auto"
         >
-          <FriendTab />
+          <FriendTab open={() => setChatOpen(true)} />
         </motion.div>
       </section>
       <section
