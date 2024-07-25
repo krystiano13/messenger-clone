@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import type { FriendMessage } from "../../types/friendMessage";
 
 interface Props {
@@ -7,7 +8,8 @@ interface Props {
 
 export const FriendTab: React.FC<Props> = ({ open, friend }) => {
   return (
-    <div
+    <motion.div
+      animate={{ opacity: [0, 1], y: [30, 0] }}
       onClick={open}
       className="flex justify-start items-center rounded-lg gap-4 p-4 hover:bg-gray-800 cursor-pointer transition-colors"
     >
@@ -22,6 +24,6 @@ export const FriendTab: React.FC<Props> = ({ open, friend }) => {
           {friend.message} {friend.time}
         </p>
       </section>
-    </div>
+    </motion.div>
   );
 };

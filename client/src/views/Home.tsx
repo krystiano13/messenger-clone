@@ -12,7 +12,6 @@ import type { FriendMessage } from "../types/friendMessage";
 export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>("");
   const [friends, setFriends] = useState<FriendMessage[]>([
     {
       name: "John Doe",
