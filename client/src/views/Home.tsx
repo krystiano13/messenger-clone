@@ -13,7 +13,10 @@ export function Home() {
 
   return (
     <>
-      <Menu menuOpen={menuOpen} />
+      <Menu
+        menuOpen={menuOpen}
+        setMenuOpen={(value: boolean) => setMenuOpen(value)}
+      />
       <div className="w-full h-full flex justify-between overflow-hidden">
         <section className="w-full md:w-1/3 flex flex-col gap-5 bg-gray-900 bg-opacity-25 p-4">
           <motion.div
