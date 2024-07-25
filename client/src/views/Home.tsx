@@ -7,7 +7,7 @@ import { FriendTab } from "../components/Home/FriendTab";
 import { ChatSection } from "../components/Home/ChatSection";
 import { Menu } from "../components/Home/Menu";
 
-export function Home() {
+export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export function Login() {
+export default function Login() {
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
       <motion.section

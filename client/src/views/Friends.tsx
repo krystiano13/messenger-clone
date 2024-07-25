@@ -1,3 +1,3 @@
-export function Friends() {
+export default function Friends() {
   return <></>;
 }
