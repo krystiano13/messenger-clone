@@ -29,7 +29,10 @@ export function Home() {
             className="flex flex-col gap-5 sticky"
           >
             <div className="flex w-full justify-start items-center gap-4">
-              <HamburgerButton />
+              <HamburgerButton
+                menuOpen={menuOpen}
+                setMenuOpen={(value: boolean) => setMenuOpen(value)}
+              />
               <h1 className="text-center text-white text-2xl">Chats</h1>
             </div>
             <Searchbar />
