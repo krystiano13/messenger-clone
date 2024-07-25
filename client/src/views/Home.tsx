@@ -12,6 +12,7 @@ import type { FriendMessage } from "../types/friendMessage";
 export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
   const [friends, setFriends] = useState<FriendMessage[]>([
     {
       name: "John Doe",
@@ -19,6 +20,18 @@ export default function Home() {
       message: "Hi !",
     },
   ]);
+  const [filteredFriends, setFilteredFriends] = useState<FriendMessage[]>([
+    ...friends,
+  ]);
+
+  function findFriend(value: string) {
+    const array = [...friends];
+    const filteredArray = array.filter((item) =>
+      item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+    );
+
+    setFilteredFriends(filteredArray);
+  }
 
   return (
     <>
@@ -47,7 +60,7 @@ export default function Home() {
               />
               <h1 className="text-center text-white text-2xl">Chats</h1>
             </div>
-            <Searchbar />
+            <Searchbar search={(value: string) => findFriend(value)} />
           </motion.div>
           <motion.div
             transition={{
@@ -63,7 +76,7 @@ export default function Home() {
             id="chats"
             className="h-fit flex-1 overflow-y-auto"
           >
-            {friends.map((item) => (
+            {filteredFriends.map((item) => (
               <FriendTab friend={item} open={() => setChatOpen(true)} />
             ))}
           </motion.div>
