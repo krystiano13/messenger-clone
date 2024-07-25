@@ -1,8 +1,11 @@
+import type { FriendMessage } from "../../types/friendMessage";
+
 interface Props {
   open: () => void;
+  friend: FriendMessage;
 }
 
-export const FriendTab: React.FC<Props> = ({ open }) => {
+export const FriendTab: React.FC<Props> = ({ open, friend }) => {
   return (
     <div
       onClick={open}
@@ -14,9 +17,9 @@ export const FriendTab: React.FC<Props> = ({ open }) => {
         alt=""
       />
       <section>
-        <h2 className="text-white text-xl font-regular">John Doe</h2>
+        <h2 className="text-white text-xl font-regular">{friend.name}</h2>
         <p className="text-slate-300 text-opacity-50 font-light text-base">
-          Hi ! 9:00
+          {friend.message} {friend.time}
         </p>
       </section>
     </div>

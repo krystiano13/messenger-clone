@@ -7,9 +7,18 @@ import { FriendTab } from "../components/Home/FriendTab";
 import { ChatSection } from "../components/Home/ChatSection";
 import { Menu } from "../components/Home/Menu";
 
+import type { FriendMessage } from "../types/friendMessage";
+
 export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [friends, setFriends] = useState<FriendMessage[]>([
+    {
+      name: "John Doe",
+      time: "9:00",
+      message: "Hi !",
+    },
+  ]);
 
   return (
     <>
@@ -54,7 +63,9 @@ export default function Home() {
             id="chats"
             className="h-fit flex-1 overflow-y-auto"
           >
-            <FriendTab open={() => setChatOpen(true)} />
+            {friends.map((item) => (
+              <FriendTab friend={item} open={() => setChatOpen(true)} />
+            ))}
           </motion.div>
         </section>
         <ChatSection
