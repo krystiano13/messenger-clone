@@ -16,7 +16,10 @@ export function Menu({ menuOpen, setMenuOpen }: Props) {
         alt=""
       />
       <h1 className="text-white text-center font-medium text-3xl">John Doe</h1>
-      <div className="flex items-center gap-3">
+      <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+        Friends
+      </button>
+      <div className="flex justify-center items-center gap-3 w-36">
         <button
           onClick={() => setMenuOpen(false)}
           className="px-8 py-2.5 w-full leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
