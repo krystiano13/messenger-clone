@@ -17,6 +17,24 @@ export default function Friends() {
     ...friends,
   ]);
 
+  function findFriend(value: string) {
+    const array = [...friends];
+    const filteredArray = array.filter((item) =>
+      item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+    );
+
+    setFilteredFriends(filteredArray);
+  }
+
+  function findNewFriend(value: string) {
+    const array = [...newFriends];
+    const filteredArray = array.filter((item) =>
+      item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+    );
+
+    setNewFriends(filteredArray);
+  }
+
   const navigate = useNavigate();
   return (
     <div className="w-full h-full flex flex-col items-center p-6 gap-6">
@@ -28,7 +46,13 @@ export default function Friends() {
           Go Back
         </button>
       </div>
-      <Searchbar search={(value: string) => {}} />
+      <Searchbar
+        search={
+          findFriends
+            ? (value: string) => findNewFriend(value)
+            : (value: string) => findFriend(value)
+        }
+      />
       <section className="flex items-center gap-3 w-full">
         <button
           onClick={() => setFindFriend(false)}
