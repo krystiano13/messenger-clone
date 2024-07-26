@@ -1,26 +1,26 @@
 import { motion } from "framer-motion";
 
 export default function Register() {
+  function applyTransition(delay: number) {
+    return {
+      duration: 0.35,
+      type: "spring",
+      bounce: 0.5,
+      delay: delay,
+    };
+  }
+
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
       <motion.section
-        transition={{
-          duration: 0.35,
-          type: "spring",
-          bounce: 0.5,
-        }}
+        transition={applyTransition(0)}
         animate={{
           opacity: [0, 1],
         }}
         className="w-[95vw] md:w-auto md:max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
       >
         <motion.h2
-          transition={{
-            duration: 0.35,
-            type: "spring",
-            bounce: 0.5,
-            delay: 0.1,
-          }}
+          transition={applyTransition(0.1)}
           animate={{
             opacity: [0, 1],
             y: [30, 0],
@@ -33,12 +33,7 @@ export default function Register() {
         <form>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <motion.div
-              transition={{
-                duration: 0.35,
-                type: "spring",
-                bounce: 0.5,
-                delay: 0.2,
-              }}
+              transition={applyTransition(0.2)}
               animate={{
                 opacity: [0, 1],
                 y: [30, 0],
@@ -55,12 +50,7 @@ export default function Register() {
             </motion.div>
 
             <motion.div
-              transition={{
-                duration: 0.35,
-                type: "spring",
-                bounce: 0.5,
-                delay: 0.3,
-              }}
+              transition={applyTransition(0.3)}
               animate={{
                 opacity: [0, 1],
                 y: [30, 0],
@@ -77,12 +67,7 @@ export default function Register() {
             </motion.div>
 
             <motion.div
-              transition={{
-                duration: 0.35,
-                type: "spring",
-                bounce: 0.5,
-                delay: 0.4,
-              }}
+              transition={applyTransition(0.4)}
               animate={{
                 opacity: [0, 1],
                 y: [30, 0],
@@ -99,12 +84,7 @@ export default function Register() {
             </motion.div>
 
             <motion.div
-              transition={{
-                duration: 0.35,
-                type: "spring",
-                bounce: 0.5,
-                delay: 0.5,
-              }}
+              transition={applyTransition(0.5)}
               animate={{
                 opacity: [0, 1],
                 y: [30, 0],
@@ -123,12 +103,7 @@ export default function Register() {
 
           <div className="flex justify-end mt-6">
             <motion.button
-              transition={{
-                duration: 0.35,
-                type: "spring",
-                bounce: 0.5,
-                delay: 0.6,
-              }}
+              transition={applyTransition(0.6)}
               animate={{
                 opacity: [0, 1],
                 y: [30, 0],
