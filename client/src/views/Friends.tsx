@@ -1,5 +1,6 @@
 import { Searchbar } from "../components/Home/Searchbar";
 import { useNavigate } from "react-router";
+import { FriendSearchTab } from "../components/Friends/FriendSearchTab";
 
 export default function Friends() {
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ export default function Friends() {
         </button>
       </div>
       <Searchbar search={(value: string) => {}} />
-      <div className="w-full flex flex-col items-center justify-start"></div>
+      <div className="w-full flex flex-col items-center justify-start">
+        <FriendSearchTab name="John Doe" />
+      </div>
     </div>
   );
 }
