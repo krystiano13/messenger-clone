@@ -10,6 +10,13 @@ export default function Register() {
     };
   }
 
+  function animate() {
+    return {
+      opacity: [0, 1],
+      y: [30, 0],
+    };
+  }
+
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
       <motion.section
@@ -21,10 +28,7 @@ export default function Register() {
       >
         <motion.h2
           transition={applyTransition(0.1)}
-          animate={{
-            opacity: [0, 1],
-            y: [30, 0],
-          }}
+          animate={animate()}
           className="text-lg font-semibold text-gray-700 capitalize dark:text-white"
         >
           Create new account
@@ -32,13 +36,7 @@ export default function Register() {
 
         <form>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <motion.div
-              transition={applyTransition(0.2)}
-              animate={{
-                opacity: [0, 1],
-                y: [30, 0],
-              }}
-            >
+            <motion.div transition={applyTransition(0.2)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
                 Username
               </label>
@@ -49,13 +47,7 @@ export default function Register() {
               />
             </motion.div>
 
-            <motion.div
-              transition={applyTransition(0.3)}
-              animate={{
-                opacity: [0, 1],
-                y: [30, 0],
-              }}
-            >
+            <motion.div transition={applyTransition(0.3)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
                 Email Address
               </label>
@@ -66,13 +58,7 @@ export default function Register() {
               />
             </motion.div>
 
-            <motion.div
-              transition={applyTransition(0.4)}
-              animate={{
-                opacity: [0, 1],
-                y: [30, 0],
-              }}
-            >
+            <motion.div transition={applyTransition(0.4)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
                 Password
               </label>
@@ -83,13 +69,7 @@ export default function Register() {
               />
             </motion.div>
 
-            <motion.div
-              transition={applyTransition(0.5)}
-              animate={{
-                opacity: [0, 1],
-                y: [30, 0],
-              }}
-            >
+            <motion.div transition={applyTransition(0.5)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
                 Password Confirmation
               </label>
@@ -104,10 +84,7 @@ export default function Register() {
           <div className="flex justify-end mt-6">
             <motion.button
               transition={applyTransition(0.6)}
-              animate={{
-                opacity: [0, 1],
-                y: [30, 0],
-              }}
+              animate={animate()}
               className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
             >
               Register
