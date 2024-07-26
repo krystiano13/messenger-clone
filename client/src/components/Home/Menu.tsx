@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router";
+
 interface Props {
   menuOpen: boolean;
   setMenuOpen: (value: boolean) => void;
 }
 
 export function Menu({ menuOpen, setMenuOpen }: Props) {
+  const navigate = useNavigate();
   return (
     <div
       className={`${
@@ -16,7 +19,10 @@ export function Menu({ menuOpen, setMenuOpen }: Props) {
         alt=""
       />
       <h1 className="text-white text-center font-medium text-3xl">John Doe</h1>
-      <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+      <button
+        onClick={() => navigate("/friends")}
+        className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+      >
         Friends
       </button>
       <div className="flex justify-center items-center gap-3 w-36">
