@@ -2,9 +2,21 @@ import { useState } from "react";
 import { Searchbar } from "../components/Home/Searchbar";
 import { useNavigate } from "react-router";
 import { FriendSearchTab } from "../components/Friends/FriendSearchTab";
+import type { Friend } from "../types/friend";
 
 export default function Friends() {
   const [findFriends, setFindFriend] = useState<boolean>(false);
+
+  const [newFriends, setNewFriends] = useState<Friend[]>([]);
+  const [friends, setFriends] = useState<Friend[]>([
+    {
+      name: "John Doe",
+    },
+  ]);
+  const [filteredFriends, setFilteredFriends] = useState<Friend[]>([
+    ...friends,
+  ]);
+
   const navigate = useNavigate();
   return (
     <div className="w-full h-full flex flex-col items-center p-6 gap-6">
@@ -40,7 +52,19 @@ export default function Friends() {
         </button>
       </section>
       <div className="w-full flex flex-col items-center justify-start">
-        <FriendSearchTab name="John Doe" />
+        {findFriends ? (
+          <>
+            {newFriends.map((item) => (
+              <FriendSearchTab name={item.name} />
+            ))}
+          </>
+        ) : (
+          <>
+            {filteredFriends.map((item) => (
+              <FriendSearchTab name={item.name} />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
