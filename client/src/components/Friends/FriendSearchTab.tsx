@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 interface Props {
   name: string;
 }
 
 export function FriendSearchTab({ name }: Props) {
+  const navigate = useNavigate();
   return (
     <motion.div
+      onClick={() => navigate("/friend")}
       animate={{ opacity: [0, 1], y: [30, 0] }}
       className="w-full flex justify-start items-center rounded-lg gap-4 p-4 hover:bg-gray-700 cursor-pointer transition-colors"
     >
