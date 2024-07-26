@@ -1,26 +1,26 @@
 import { motion } from "framer-motion";
 
 export default function Login() {
+  function applyTransition(delay: number) {
+    return {
+      duration: 0.35,
+      type: "spring",
+      bounce: 0.5,
+      delay: delay,
+    };
+  }
+
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
       <motion.section
-        transition={{
-          duration: 0.35,
-          type: "spring",
-          bounce: 0.5,
-        }}
+        transition={applyTransition(0)}
         animate={{
           opacity: [0, 1],
         }}
         className="w-[90vw] md:w-96 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
       >
         <motion.h2
-          transition={{
-            duration: 0.35,
-            type: "spring",
-            bounce: 0.5,
-            delay: 0.1,
-          }}
+          transition={applyTransition(0.1)}
           animate={{
             opacity: [0, 1],
             y: [35, 0],
@@ -33,12 +33,7 @@ export default function Login() {
         <form>
           <div className="flex flex-col gap-6 mt-4">
             <motion.div
-              transition={{
-                duration: 0.35,
-                delay: 0.2,
-                type: "spring",
-                bounce: 0.5,
-              }}
+              transition={applyTransition(0.2)}
               animate={{
                 opacity: [0, 1],
                 y: [35, 0],
@@ -55,12 +50,7 @@ export default function Login() {
             </motion.div>
 
             <motion.div
-              transition={{
-                duration: 0.35,
-                delay: 0.3,
-                type: "spring",
-                bounce: 0.5,
-              }}
+              transition={applyTransition(0.35)}
               animate={{
                 opacity: [0, 1],
                 y: [35, 0],
@@ -79,12 +69,7 @@ export default function Login() {
 
           <div className="flex mt-6">
             <motion.button
-              transition={{
-                duration: 0.35,
-                delay: 0.4,
-                type: "spring",
-                bounce: 0.5,
-              }}
+              transition={applyTransition(0.4)}
               animate={{
                 opacity: [0, 1],
                 y: [35, 0],
