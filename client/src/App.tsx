@@ -8,8 +8,8 @@ import { Spinner } from "./components/Spinner/Spinner";
 function App() {
   return (
     <div className="w-[100vw] h-[100vh] bg-gray-800 overflow-x-hidden">
-      <AuthContextProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <AuthContextProvider>
           <Routes>
             {routes.map((item) => (
               <Route
@@ -21,8 +21,8 @@ function App() {
               />
             ))}
           </Routes>
-        </BrowserRouter>
-      </AuthContextProvider>
+        </AuthContextProvider>
+      </BrowserRouter>
     </div>
   );
 }
