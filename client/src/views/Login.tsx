@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Login() {
   function applyTransition(delay: number) {
@@ -9,6 +10,25 @@ export default function Login() {
       delay: delay,
     };
   }
+
+  async function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formData = await new FormData(e.target as HTMLFormElement);
+
+    const res = await fetch("http://127.0.0.1:3000/users/tokens/sign_in", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+  }
+
+  const loginMutation = useMutation({
+    mutationFn: handleSubmit,
+  });
 
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -30,7 +50,7 @@ export default function Login() {
           Welcome Back !
         </motion.h2>
 
-        <form>
+        <form onSubmit={(e) => loginMutation.mutate(e)}>
           <div className="flex flex-col gap-6 mt-4">
             <motion.div
               transition={applyTransition(0.2)}
