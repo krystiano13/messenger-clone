@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useMutation } from "@tanstack/react-query";
+import { useRegister } from "../hooks/useRegister";
 
 export default function Register() {
   function applyTransition(delay: number) {
@@ -18,24 +18,7 @@ export default function Register() {
     };
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = await new FormData(e.target as HTMLFormElement);
-
-    const res = await fetch("http://127.0.0.1:3000/users/tokens/sign_up", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-    console.log(data);
-    return data;
-  }
-
-  const registerMutation = useMutation({
-    mutationFn: handleSubmit,
-  });
+  const register = useRegister();
 
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -54,7 +37,11 @@ export default function Register() {
           Create new account
         </motion.h2>
 
-        <form onSubmit={(e) => registerMutation.mutate(e)}>
+        <form
+          onSubmit={(e) =>
+            register.mutation.mutateAsync(e).then((res) => console.log(res))
+          }
+        >
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <motion.div transition={applyTransition(0.2)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
@@ -114,6 +101,12 @@ export default function Register() {
               Register
             </motion.button>
           </div>
+
+          {register.errors.map((item) => (
+            <p className="text-red-500 text-center text-lg font-regular">
+              {item}
+            </p>
+          ))}
         </form>
       </motion.section>
     </div>
