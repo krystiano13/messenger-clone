@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useMutation } from "@tanstack/react-query";
+import { useLogin } from "../hooks/useLogin";
 
 export default function Login() {
   function applyTransition(delay: number) {
@@ -11,24 +11,7 @@ export default function Login() {
     };
   }
 
-  async function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = await new FormData(e.target as HTMLFormElement);
-
-    const res = await fetch("http://127.0.0.1:3000/users/tokens/sign_in", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await res.json();
-    console.log(data);
-    return data;
-  }
-
-  const loginMutation = useMutation({
-    mutationFn: handleSubmit,
-  });
+  const login = useLogin();
 
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -50,7 +33,7 @@ export default function Login() {
           Welcome Back !
         </motion.h2>
 
-        <form onSubmit={(e) => loginMutation.mutate(e)}>
+        <form onSubmit={(e) => login.mutation.mutate(e)}>
           <div className="flex flex-col gap-6 mt-4">
             <motion.div
               transition={applyTransition(0.2)}
@@ -65,6 +48,7 @@ export default function Login() {
               <input
                 id="emailAddress"
                 type="email"
+                name="email"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
             </motion.div>
@@ -82,6 +66,7 @@ export default function Login() {
               <input
                 id="password"
                 type="password"
+                name="password"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
             </motion.div>
@@ -99,6 +84,11 @@ export default function Login() {
               Log In
             </motion.button>
           </div>
+          {login.errors.map((item) => (
+            <p className="text-red-500 text-center text-lg font-regular">
+              {item}
+            </p>
+          ))}
         </form>
       </motion.section>
     </div>

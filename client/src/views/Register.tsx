@@ -37,11 +37,7 @@ export default function Register() {
           Create new account
         </motion.h2>
 
-        <form
-          onSubmit={(e) =>
-            register.mutation.mutateAsync(e).then((res) => console.log(res))
-          }
-        >
+        <form onSubmit={(e) => register.mutation.mutate(e)}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <motion.div transition={applyTransition(0.2)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
