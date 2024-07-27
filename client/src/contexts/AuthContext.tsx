@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import type { User, UserState } from "../types/user";
 
-const AuthContext = createContext<UserState>({
+export const AuthContext = createContext<UserState>({
   user: null,
   setUser: null,
 });
