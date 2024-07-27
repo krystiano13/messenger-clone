@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :api
 
   has_many :group_member
+
+  validates :username, presence: true
 end
