@@ -42,4 +42,6 @@ Rails.application.routes.draw do
   get "api/friends/:user_id", to: "friend#index", as: :friend
   post "api/friends/invites/", to: "friend#create", as: :friend_create
   delete "api/friends/invites/:id", to: "friend_#destroy", as: :friend_destroy
+
+  get "api/users/name/:email", to: "username#index", as: :username
 end
