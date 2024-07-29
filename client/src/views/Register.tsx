@@ -35,6 +35,7 @@ export default function Register() {
     auth.auth.setUser({
       email: emailInputRef.current?.value as string,
       accessToken: accessToken,
+      username: usernameInputRef.current?.value as string,
     });
 
     navigate("/");
@@ -61,7 +62,7 @@ export default function Register() {
           onSubmit={(e) =>
             register.mutation.mutateAsync(e).then((res) => {
               console.log(res);
-              registerSuccess(res.resource_owner.refreshToken, res.token);
+              registerSuccess(res.refresh_token, res.token);
             })
           }
         >
