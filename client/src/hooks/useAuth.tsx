@@ -13,5 +13,5 @@ export function useAuth() {
     }
   }, [auth]);
 
-  return { data: auth, loggedIn };
+  return { auth, loggedIn };
 }

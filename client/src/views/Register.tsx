@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useNavigate } from "react-router";
 import { useRegister } from "../hooks/useRegister";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Register() {
   function applyTransition(delay: number) {
@@ -19,6 +22,23 @@ export default function Register() {
   }
 
   const register = useRegister();
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const usernameInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
+  function registerSuccess(token: string, accessToken: string) {
+    localStorage.setItem("refresh_token", token);
+    localStorage.setItem("username", usernameInputRef.current?.value as string);
+
+    auth.auth.setUser({
+      email: emailInputRef.current?.value as string,
+      accessToken: accessToken,
+    });
+
+    navigate("/");
+  }
 
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -37,13 +57,21 @@ export default function Register() {
           Create new account
         </motion.h2>
 
-        <form onSubmit={(e) => register.mutation.mutate(e)}>
+        <form
+          onSubmit={(e) =>
+            register.mutation.mutateAsync(e).then((res) => {
+              console.log(res);
+              registerSuccess(res.resource_owner.refreshToken, res.token);
+            })
+          }
+        >
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <motion.div transition={applyTransition(0.2)} animate={animate()}>
               <label className="text-gray-700 dark:text-gray-200">
                 Username
               </label>
               <input
+                ref={usernameInputRef}
                 id="username"
                 type="text"
                 name="username"
@@ -59,6 +87,7 @@ export default function Register() {
                 id="emailAddress"
                 type="email"
                 name="email"
+                ref={emailInputRef}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
             </motion.div>

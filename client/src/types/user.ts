@@ -1,11 +1,9 @@
 export type User = {
-    username: string;
-    email: string;
-    accessToken: string;
-    refreshToken: string;
-}
+  email: string;
+  accessToken: string;
+};
 
 export interface UserState {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>> | null;
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
