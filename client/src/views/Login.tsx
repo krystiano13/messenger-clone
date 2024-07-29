@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 import { useLogin } from "../hooks/useLogin";
+import { useRef } from "react";
 
 export default function Login() {
   function applyTransition(delay: number) {
@@ -12,6 +15,22 @@ export default function Login() {
   }
 
   const login = useLogin();
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
+  function loginSuccess(token: string, accessToken: string) {
+    localStorage.setItem("refresh_token", token);
+
+    auth.auth.setUser({
+      email: emailInputRef.current?.value as string,
+      accessToken: accessToken,
+      username: "",
+    });
+
+    navigate("/");
+  }
 
   return (
     <div className="w-full h-full flex bg-gray-900 bg-opacity-50 justify-center items-center">
@@ -33,7 +52,13 @@ export default function Login() {
           Welcome Back !
         </motion.h2>
 
-        <form onSubmit={(e) => login.mutation.mutate(e)}>
+        <form
+          onSubmit={(e) =>
+            login.mutation
+              .mutateAsync(e)
+              .then((res) => loginSuccess(res.refresh_token, res.token))
+          }
+        >
           <div className="flex flex-col gap-6 mt-4">
             <motion.div
               transition={applyTransition(0.2)}
@@ -49,6 +74,7 @@ export default function Login() {
                 id="emailAddress"
                 type="email"
                 name="email"
+                ref={emailInputRef}
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
             </motion.div>

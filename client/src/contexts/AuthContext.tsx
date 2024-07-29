@@ -49,12 +49,6 @@ export function AuthContextProvider({ children }: Props) {
   });
 
   useEffect(() => {
-    if (
-      !localStorage.getItem("refresh_token") ||
-      !localStorage.getItem("username")
-    )
-      return;
-
     refreshMutation.mutateAsync().then((res) => {
       setUser({
         username: localStorage.getItem("username") as string,
