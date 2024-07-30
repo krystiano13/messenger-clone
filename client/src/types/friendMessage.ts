@@ -1,5 +1,5 @@
 export type FriendMessage = {
-    name: string;
+    friend_name: string;
     message: string;
     time: string;
 }

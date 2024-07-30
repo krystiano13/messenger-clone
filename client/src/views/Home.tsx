@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../hooks/useAuth";
 
 import { HamburgerButton } from "../components/Home/HamburgerButton";
 import { Searchbar } from "../components/Home/Searchbar";
@@ -12,21 +14,29 @@ import type { FriendMessage } from "../types/friendMessage";
 export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [friends, setFriends] = useState<FriendMessage[]>([
-    {
-      name: "John Doe",
-      time: "9:00",
-      message: "Hi !",
-    },
-  ]);
-  const [filteredFriends, setFilteredFriends] = useState<FriendMessage[]>([
-    ...friends,
-  ]);
+  const [friends, setFriends] = useState<FriendMessage[]>([]);
+  const [filteredFriends, setFilteredFriends] = useState<FriendMessage[]>([]);
+
+  const auth = useAuth();
+
+  const friendsQuery = useQuery({
+    queryKey: ["friends"],
+    queryFn: getFriends,
+  });
+
+  async function getFriends() {
+    const res = await fetch(
+      `http://127.0.0.1:3000/api/friends/${auth.auth.user.id}`
+    );
+    const data = await res.json();
+    setFilteredFriends(data.friends);
+    return data;
+  }
 
   function findFriend(value: string) {
-    const array = [...friends];
+    const array = [...friendsQuery.data.friends];
     const filteredArray = array.filter((item) =>
-      item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+      item.friend_name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
     );
 
     setFilteredFriends(filteredArray);
@@ -75,9 +85,14 @@ export default function Home() {
             id="chats"
             className="h-fit flex-1 overflow-y-auto"
           >
-            {filteredFriends.map((item) => (
-              <FriendTab friend={item} open={() => setChatOpen(true)} />
-            ))}
+            {friendsQuery.isSuccess && (
+              <>
+                {filteredFriends.length > 0 &&
+                  filteredFriends.map((item) => (
+                    <FriendTab friend={item} open={() => setChatOpen(true)} />
+                  ))}
+              </>
+            )}
           </motion.div>
         </section>
         <ChatSection

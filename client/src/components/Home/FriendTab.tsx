@@ -19,7 +19,7 @@ export const FriendTab: React.FC<Props> = ({ open, friend }) => {
         alt=""
       />
       <section>
-        <h2 className="text-white text-xl font-regular">{friend.name}</h2>
+        <h2 className="text-white text-xl font-regular">{friend.friend_name}</h2>
         <p className="text-slate-300 text-opacity-50 font-light text-base">
           {friend.message} {friend.time}
         </p>
