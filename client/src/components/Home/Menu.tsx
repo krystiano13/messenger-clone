@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import { useAuth } from "../../hooks/useAuth";
 
 interface Props {
   menuOpen: boolean;
@@ -7,6 +8,20 @@ interface Props {
 
 export function Menu({ menuOpen, setMenuOpen }: Props) {
   const navigate = useNavigate();
+  const auth = useAuth();
+
+  function logOut() {
+    localStorage.removeItem("username");
+    localStorage.removeItem("refresh_token");
+
+    auth.auth.setUser({
+      id: -1,
+      email: "",
+      username: "",
+      accessToken: "",
+    });
+  }
+
   return (
     <div
       className={`${
@@ -32,7 +47,10 @@ export function Menu({ menuOpen, setMenuOpen }: Props) {
         >
           Close
         </button>
-        <button className="px-8 py-2.5 text-nowrap w-full leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+        <button
+          onClick={logOut}
+          className="px-8 py-2.5 text-nowrap w-full leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+        >
           Log Out
         </button>
       </div>
