@@ -6,6 +6,7 @@ import { Spinner } from "../components/Spinner/Spinner";
 
 export const AuthContext = createContext<UserState>({
   user: {
+    id: -1,
     email: "",
     accessToken: "",
     username: "",
@@ -19,6 +20,7 @@ interface Props {
 
 export function AuthContextProvider({ children }: Props) {
   const [user, setUser] = useState<User>({
+    id: -1,
     email: "",
     accessToken: "",
     username: "",
@@ -35,10 +37,8 @@ export function AuthContextProvider({ children }: Props) {
       },
     });
 
-    console.log(localStorage.getItem("refresh_token"));
-
     const data: {
-      resource_owner: { email: string };
+      resource_owner: { id: number ,email: string };
       token: string;
     } = await res.json();
     return data;
@@ -51,6 +51,7 @@ export function AuthContextProvider({ children }: Props) {
   useEffect(() => {
     refreshMutation.mutateAsync().then((res) => {
       setUser({
+        id: res.resource_owner.id,
         username: localStorage.getItem("username") as string,
         email: res.resource_owner.email,
         accessToken: res.token,

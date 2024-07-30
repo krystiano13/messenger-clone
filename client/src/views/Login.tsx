@@ -32,8 +32,6 @@ export default function Login() {
   }
 
   function loginSuccess(id: number, token: string, accessToken: string) {
-    localStorage.setItem("refresh_token", token);
-
     auth.auth.setUser({
       id: id,
       email: emailInputRef.current?.value as string,
@@ -47,14 +45,13 @@ export default function Login() {
       auth.auth.setUser({
         id: id,
         email: emailInputRef.current?.value as string,
-        accessToken: auth.auth.user.accessToken,
+        accessToken: accessToken,
         username: res.username,
       });
 
       localStorage.setItem("username", res.username);
+      localStorage.setItem("refresh_token", token);
     });
-
-    navigate("/");
   }
 
   return (
@@ -79,17 +76,9 @@ export default function Login() {
 
         <form
           onSubmit={(e) =>
-            login.mutation
-              .mutateAsync(e)
-              .then((res) =>
-              {
-                loginSuccess(
-                  res.resource_owner.id,
-                  res.refresh_token,
-                  res.token
-                );
-              }
-              )
+            login.mutation.mutateAsync(e).then((res) => {
+              loginSuccess(res.resource_owner.id, res.refresh_token, res.token);
+            })
           }
         >
           <div className="flex flex-col gap-6 mt-4">
