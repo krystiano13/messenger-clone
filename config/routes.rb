@@ -43,5 +43,5 @@ Rails.application.routes.draw do
   post "api/friends/invites/", to: "friend#create", as: :friend_create
   delete "api/friends/invites/:id", to: "friend_#destroy", as: :friend_destroy
 
-  get "api/users/name/:email", to: "username#index", as: :username
+  get "api/users/name/:id", to: "username#index", as: :username
 end

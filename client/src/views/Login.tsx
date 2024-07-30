@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useLogin } from "../hooks/useLogin";
 import { useRef } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Login() {
   function applyTransition(delay: number) {
@@ -20,13 +21,37 @@ export default function Login() {
 
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  function loginSuccess(token: string, accessToken: string) {
+  const usernameMutation = useMutation({
+    mutationFn: getUsername,
+  });
+
+  async function getUsername(id: number) {
+    const res = await fetch(`http://127.0.0.1:3000/api/users/name/${id}`);
+    const data = await res.json();
+    return data;
+  }
+
+  function loginSuccess(id: number, token: string, accessToken: string) {
     localStorage.setItem("refresh_token", token);
 
     auth.auth.setUser({
+      id: id,
       email: emailInputRef.current?.value as string,
       accessToken: accessToken,
       username: "",
+    });
+
+    usernameMutation.mutateAsync(id).then((res) => {
+      console.log(res);
+
+      auth.auth.setUser({
+        id: id,
+        email: emailInputRef.current?.value as string,
+        accessToken: auth.auth.user.accessToken,
+        username: res.username,
+      });
+
+      localStorage.setItem("username", res.username);
     });
 
     navigate("/");
@@ -56,7 +81,15 @@ export default function Login() {
           onSubmit={(e) =>
             login.mutation
               .mutateAsync(e)
-              .then((res) => loginSuccess(res.refresh_token, res.token))
+              .then((res) =>
+              {
+                loginSuccess(
+                  res.resource_owner.id,
+                  res.refresh_token,
+                  res.token
+                );
+              }
+              )
           }
         >
           <div className="flex flex-col gap-6 mt-4">

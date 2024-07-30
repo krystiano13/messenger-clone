@@ -28,11 +28,12 @@ export default function Register() {
   const usernameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  function registerSuccess(token: string, accessToken: string) {
+  function registerSuccess(id: number, token: string, accessToken: string) {
     localStorage.setItem("refresh_token", token);
     localStorage.setItem("username", usernameInputRef.current?.value as string);
 
     auth.auth.setUser({
+      id: id,
       email: emailInputRef.current?.value as string,
       accessToken: accessToken,
       username: usernameInputRef.current?.value as string,
@@ -62,7 +63,11 @@ export default function Register() {
           onSubmit={(e) =>
             register.mutation.mutateAsync(e).then((res) => {
               console.log(res);
-              registerSuccess(res.refresh_token, res.token);
+              registerSuccess(
+                res.resource_owner.id,
+                res.refresh_token,
+                res.token
+              );
             })
           }
         >
