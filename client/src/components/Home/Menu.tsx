@@ -33,7 +33,9 @@ export function Menu({ menuOpen, setMenuOpen }: Props) {
         src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100"
         alt=""
       />
-      <h1 className="text-white text-center font-medium text-3xl">John Doe</h1>
+      <h1 className="text-white text-center font-medium text-3xl">
+        {auth.auth.user.username}
+      </h1>
       <button
         onClick={() => navigate("/friends")}
         className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"

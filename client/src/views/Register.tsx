@@ -62,7 +62,6 @@ export default function Register() {
         <form
           onSubmit={(e) =>
             register.mutation.mutateAsync(e).then((res) => {
-              console.log(res);
               registerSuccess(
                 res.resource_owner.id,
                 res.refresh_token,

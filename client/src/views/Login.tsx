@@ -17,6 +17,7 @@ export default function Login() {
 
   const login = useLogin();
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,9 +32,13 @@ export default function Login() {
   }
 
   function loginSuccess(id: number, token: string, accessToken: string) {
+    localStorage.setItem("refresh_token", token);
+
+    const email: string = emailInputRef.current?.value as string;
+
     auth.auth.setUser({
       id: id,
-      email: emailInputRef.current?.value as string,
+      email: email,
       accessToken: accessToken,
       username: "",
     });
@@ -41,14 +46,15 @@ export default function Login() {
     usernameMutation.mutateAsync(id).then((res) => {
       auth.auth.setUser({
         id: id,
-        email: emailInputRef.current?.value as string,
+        email: email,
         accessToken: accessToken,
         username: res.username,
       });
 
       localStorage.setItem("username", res.username);
-      localStorage.setItem("refresh_token", token);
     });
+
+    navigate("/");
   }
 
   return (

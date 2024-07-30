@@ -60,6 +60,7 @@ export function AuthContextProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
+    console.log(user);
     if (!user.accessToken || !user.email) {
       if (location.pathname !== "/login" && location.pathname !== "/register") {
         navigate("/login");
