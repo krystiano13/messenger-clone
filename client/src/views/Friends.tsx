@@ -2,25 +2,22 @@ import { useState } from "react";
 import { Searchbar } from "../components/Home/Searchbar";
 import { useNavigate } from "react-router";
 import { FriendSearchTab } from "../components/Friends/FriendSearchTab";
+import { useFriends } from "../hooks/useFriends";
 import type { Friend } from "../types/friend";
 
 export default function Friends() {
   const [findFriends, setFindFriend] = useState<boolean>(false);
+  const friendsQuery = useFriends();
 
   const [newFriends, setNewFriends] = useState<Friend[]>([]);
-  const [friends, setFriends] = useState<Friend[]>([
-    {
-      name: "John Doe",
-    },
-  ]);
   const [filteredFriends, setFilteredFriends] = useState<Friend[]>([
-    ...friends,
+    ...friendsQuery.data.friends,
   ]);
 
   function findFriend(value: string) {
-    const array = [...friends];
+    const array = [...friendsQuery.data.friends];
     const filteredArray = array.filter((item) =>
-      item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+      item.friend_name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
     );
 
     setFilteredFriends(filteredArray);
@@ -29,13 +26,14 @@ export default function Friends() {
   function findNewFriend(value: string) {
     const array = [...newFriends];
     const filteredArray = array.filter((item) =>
-      item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+      item.friend_name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
     );
 
     setNewFriends(filteredArray);
   }
 
   const navigate = useNavigate();
+
   return (
     <div className="w-full h-full flex flex-col items-center p-6 gap-6">
       <div className="w-full flex justify-between items-center">
@@ -79,13 +77,13 @@ export default function Friends() {
         {findFriends ? (
           <>
             {newFriends.map((item) => (
-              <FriendSearchTab name={item.name} />
+              <FriendSearchTab name={item.friend_name} />
             ))}
           </>
         ) : (
           <>
             {filteredFriends.map((item) => (
-              <FriendSearchTab name={item.name} />
+              <FriendSearchTab name={item.friend_name} />
             ))}
           </>
         )}

@@ -1,3 +1,3 @@
 export type Friend = {
-    name: string;
+    friend_name: string;
 }
