@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "./useAuth";
-import type { FriendMessage } from "../types/friendMessage";
+import type { FriendWithMessage } from "../types/friendMessage";
 
-type fn = React.Dispatch<React.SetStateAction<FriendMessage[]>>;
+type fn = React.Dispatch<React.SetStateAction<FriendWithMessage[]>>;
 
 export function useFriendsMessage(setFilteredFriends: fn) {
   const auth = useAuth();

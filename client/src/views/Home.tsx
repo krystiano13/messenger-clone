@@ -8,12 +8,12 @@ import { FriendTab } from "../components/Home/FriendTab";
 import { ChatSection } from "../components/Home/ChatSection";
 import { Menu } from "../components/Home/Menu";
 
-import type { FriendMessage } from "../types/friendMessage";
+import type { FriendWithMessage } from "../types/friendMessage";
 
 export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [filteredFriends, setFilteredFriends] = useState<FriendMessage[]>([]);
+  const [filteredFriends, setFilteredFriends] = useState<FriendWithMessage[]>([]);
 
   const friendsQuery = useFriendsMessage(setFilteredFriends);
 

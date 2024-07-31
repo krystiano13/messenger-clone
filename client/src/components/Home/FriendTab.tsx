@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import type { FriendMessage } from "../../types/friendMessage";
+import type { FriendWithMessage } from "../../types/friendMessage";
 
 interface Props {
   open: () => void;
-  friend: FriendMessage;
+  friend: FriendWithMessage;
 }
 
 export const FriendTab: React.FC<Props> = ({ open, friend }) => {
@@ -19,9 +19,11 @@ export const FriendTab: React.FC<Props> = ({ open, friend }) => {
         alt=""
       />
       <section>
-        <h2 className="text-white text-xl font-regular">{friend.friend_name}</h2>
+        <h2 className="text-white text-xl font-regular">
+          {friend.friend.friend_name}
+        </h2>
         <p className="text-slate-300 text-opacity-50 font-light text-base">
-          {friend.message} {friend.time}
+          {friend.last_message} {friend.friend.time}
         </p>
       </section>
     </motion.div>
