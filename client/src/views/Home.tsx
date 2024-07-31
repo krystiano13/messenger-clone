@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../hooks/useAuth";
+import { useFriends } from "../hooks/useFriends";
 
 import { HamburgerButton } from "../components/Home/HamburgerButton";
 import { Searchbar } from "../components/Home/Searchbar";
@@ -18,20 +18,7 @@ export default function Home() {
   const [filteredFriends, setFilteredFriends] = useState<FriendMessage[]>([]);
 
   const auth = useAuth();
-
-  const friendsQuery = useQuery({
-    queryKey: ["friends"],
-    queryFn: getFriends,
-  });
-
-  async function getFriends() {
-    const res = await fetch(
-      `http://127.0.0.1:3000/api/friends/${auth.auth.user.id}`
-    );
-    const data = await res.json();
-    setFilteredFriends(data.friends);
-    return data;
-  }
+  const friendsQuery = useFriends(setFilteredFriends);
 
   function findFriend(value: string) {
     const array = [...friendsQuery.data.friends];
