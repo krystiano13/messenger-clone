@@ -3,13 +3,14 @@ import { useNavigate } from "react-router";
 
 interface Props {
   name: string;
+  friendID: number;
 }
 
-export function FriendSearchTab({ name }: Props) {
+export function FriendSearchTab({ name, friendID }: Props) {
   const navigate = useNavigate();
   return (
     <motion.div
-      onClick={() => navigate("/friend")}
+      onClick={() => navigate(`/friend?id=${friendID}`)}
       animate={{ opacity: [0, 1], y: [30, 0] }}
       className="w-full flex justify-start items-center rounded-lg gap-4 p-4 hover:bg-gray-700 cursor-pointer transition-colors"
     >

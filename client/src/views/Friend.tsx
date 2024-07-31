@@ -1,12 +1,22 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function Friend() {
   const navigate = useNavigate();
 
+  const [params, setParams] = useSearchParams();
+
   function applyTransition(delay: number) {
     return { type: "spring", bounce: 0.5, duration: 0.25, delay: delay };
   }
+
+  useEffect(() => {
+    if (!params.get("id")) {
+      navigate("/friends");
+    }
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center p-6 gap-6">

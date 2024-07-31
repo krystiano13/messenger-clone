@@ -75,13 +75,21 @@ export default function Friends() {
         {findFriends ? (
           <>
             {newFriends.map((item) => (
-              <FriendSearchTab key={item.id} name={item.friend_name} />
+              <FriendSearchTab
+                key={item.id}
+                friendID={item.id}
+                name={item.friend_name}
+              />
             ))}
           </>
         ) : (
           <>
             {filteredFriends.map((item) => (
-              <FriendSearchTab key={item.id} name={item.friend_name} />
+              <FriendSearchTab
+                key={item.id}
+                friendID={item.id}
+                name={item.friend_name}
+              />
             ))}
           </>
         )}
