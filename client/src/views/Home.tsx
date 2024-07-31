@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useAuth } from "../hooks/useAuth";
-import { useFriends } from "../hooks/useFriends";
+import { useFriendsMessage } from "../hooks/useFriendsMessage";
 
 import { HamburgerButton } from "../components/Home/HamburgerButton";
 import { Searchbar } from "../components/Home/Searchbar";
@@ -14,11 +13,9 @@ import type { FriendMessage } from "../types/friendMessage";
 export default function Home() {
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [friends, setFriends] = useState<FriendMessage[]>([]);
   const [filteredFriends, setFilteredFriends] = useState<FriendMessage[]>([]);
 
-  const auth = useAuth();
-  const friendsQuery = useFriends(setFilteredFriends);
+  const friendsQuery = useFriendsMessage(setFilteredFriends);
 
   function findFriend(value: string) {
     const array = [...friendsQuery.data.friends];
