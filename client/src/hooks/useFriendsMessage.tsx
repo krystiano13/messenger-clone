@@ -17,7 +17,7 @@ export function useFriendsMessage(setFilteredFriends: fn) {
       `http://127.0.0.1:3000/api/friends/msg/${auth.auth.user.id}`
     );
     const data = await res.json();
-
+    setFilteredFriends(data.friends);
     return data;
   }
 

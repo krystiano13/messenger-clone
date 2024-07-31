@@ -7,12 +7,10 @@ import type { Friend } from "../types/friend";
 
 export default function Friends() {
   const [findFriends, setFindFriend] = useState<boolean>(false);
-  const friendsQuery = useFriends();
-
   const [newFriends, setNewFriends] = useState<Friend[]>([]);
-  const [filteredFriends, setFilteredFriends] = useState<Friend[]>([
-    ...friendsQuery.data.friends,
-  ]);
+  const [filteredFriends, setFilteredFriends] = useState<Friend[]>([]);
+
+  const friendsQuery = useFriends(setFilteredFriends);
 
   function findFriend(value: string) {
     const array = [...friendsQuery.data.friends];
