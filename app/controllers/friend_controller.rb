@@ -7,6 +7,21 @@ class FriendController < ApplicationController
         }, status: :ok
     end
 
+    def index_by_id
+        @friend = Friend.find(params[:id])
+
+        if @friend.present?
+            return render json: {
+                :friend => @friend
+            }, status: :ok
+
+        else 
+            return render json: {
+                :friend => nil,
+            }, status: 404
+        end
+    end
+
     def index_with_last_message
         @friends = Friend.where(user_id: params[:user_id])
         @friends_with_last_message = []
