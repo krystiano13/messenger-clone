@@ -2,14 +2,33 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Friend() {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const [params, setParams] = useSearchParams();
 
   function applyTransition(delay: number) {
     return { type: "spring", bounce: 0.5, duration: 0.25, delay: delay };
+  }
+
+  const friendQuery = useQuery({
+    queryKey: ["single_friend"],
+    queryFn: () => getFriendData(params.get("id") as string)
+  });
+
+  async function getFriendData(id: string) {
+    const res = await fetch(`http://127.0.0.1:3000/api/friends/id/${id}`);
+    const data = await res.json();
+    
+    if(data.friend.user_id !== auth.auth.user.id) {
+      navigate("/friends")
+    }
+
+    return data;
   }
 
   useEffect(() => {
@@ -40,7 +59,7 @@ export default function Friend() {
         className="flex items-center gap-3"
       >
         <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-          Invite
+          Remove
         </button>
         <button
           onClick={() => navigate("/friends")}
