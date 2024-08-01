@@ -30,6 +30,9 @@ export function AuthContextProvider({ children }: Props) {
   const navigate = useNavigate();
 
   async function refreshToken() {
+    if (!localStorage.getItem("refresh_token")) {
+      throw new Error("No refresh token");
+    }
     const res = await fetch("http://127.0.0.1:3000/users/tokens/refresh", {
       method: "POST",
       headers: {
@@ -38,7 +41,7 @@ export function AuthContextProvider({ children }: Props) {
     });
 
     const data: {
-      resource_owner: { id: number ,email: string };
+      resource_owner: { id: number; email: string };
       token: string;
     } = await res.json();
     return data;
@@ -75,8 +78,8 @@ export function AuthContextProvider({ children }: Props) {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {refreshMutation.isPending && <Spinner />}
-      {refreshMutation.isError ||
-        (refreshMutation.isSuccess && <>{children}</>)}
+      {refreshMutation.isError && <>{children}</>}
+      {refreshMutation.isSuccess && <>{children}</>}
     </AuthContext.Provider>
   );
 }
