@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Searchbar } from "../components/Home/Searchbar";
 import { useNavigate } from "react-router";
 import { FriendSearchTab } from "../components/Friends/FriendSearchTab";
 import { useFriends } from "../hooks/useFriends";
+import { useUsers } from "../hooks/useUsers";
 import type { Friend } from "../types/friend";
 
 export default function Friends() {
   const [findFriends, setFindFriend] = useState<boolean | "invites">(false);
   const [newFriends, setNewFriends] = useState<Friend[]>([]);
   const [filteredFriends, setFilteredFriends] = useState<Friend[]>([]);
-
+  
   const friendsQuery = useFriends(setFilteredFriends);
+  const users = useUsers("");
 
   function findFriend(value: string) {
     const array = [...friendsQuery.data.friends];
@@ -30,6 +32,10 @@ export default function Friends() {
     setNewFriends(filteredArray);
   }
 
+  function findUsers(value: string) {
+    users.mutation.mutate(value);
+  }
+
   const navigate = useNavigate();
 
   return (
@@ -44,9 +50,11 @@ export default function Friends() {
       </div>
       <Searchbar
         search={
-          findFriends
+          findFriends === true
             ? (value: string) => findNewFriend(value)
-            : (value: string) => findFriend(value)
+            : findFriends === false
+            ? (value: string) => findFriend(value)
+            : (value: string) => findUsers(value)
         }
       />
       <section className="flex items-center gap-3 w-full">
