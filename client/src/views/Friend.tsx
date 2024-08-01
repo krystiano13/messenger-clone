@@ -1,34 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
+import { useFriend } from "../hooks/useFriend";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../hooks/useAuth";
 
 export default function Friend() {
-  const navigate = useNavigate();
-  const auth = useAuth();
-
   const [params, setParams] = useSearchParams();
+
+  const navigate = useNavigate();
+  const friend = useFriend(params.get("id") as string);
 
   function applyTransition(delay: number) {
     return { type: "spring", bounce: 0.5, duration: 0.25, delay: delay };
-  }
-
-  const friendQuery = useQuery({
-    queryKey: ["single_friend"],
-    queryFn: () => getFriendData(params.get("id") as string)
-  });
-
-  async function getFriendData(id: string) {
-    const res = await fetch(`http://127.0.0.1:3000/api/friends/id/${id}`);
-    const data = await res.json();
-    
-    if(data.friend.user_id !== auth.auth.user.id) {
-      navigate("/friends")
-    }
-
-    return data;
   }
 
   useEffect(() => {
@@ -51,7 +34,7 @@ export default function Friend() {
         animate={{ opacity: [0, 1], y: [30, 0], scale: [0.5, 1] }}
         className="text-white text-center font-medium text-3xl"
       >
-        John Doe
+        {friend.data.friend.friend_name}
       </motion.h1>
       <motion.section
         transition={applyTransition(0.3)}
