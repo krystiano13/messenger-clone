@@ -58,7 +58,7 @@ class FriendController < ApplicationController
     end
 
     def destroy
-        @friend = Friend.find(:params[:id])
+        @friend = Friend.find(params[:id])
 
         if @friend.present?
             @friend.destroy!

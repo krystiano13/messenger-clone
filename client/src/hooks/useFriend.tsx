@@ -15,6 +15,8 @@ export function useFriend(id: string) {
     const res = await fetch(`http://127.0.0.1:3000/api/friends/id/${id}`);
     const data = await res.json();
 
+    console.log(data);
+
     if (data.friend.user_id !== auth.auth.user.id) {
       navigate("/friends");
     }
