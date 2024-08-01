@@ -6,7 +6,7 @@ import { useFriends } from "../hooks/useFriends";
 import type { Friend } from "../types/friend";
 
 export default function Friends() {
-  const [findFriends, setFindFriend] = useState<boolean>(false);
+  const [findFriends, setFindFriend] = useState<boolean | "invites">(false);
   const [newFriends, setNewFriends] = useState<Friend[]>([]);
   const [filteredFriends, setFilteredFriends] = useState<Friend[]>([]);
 
@@ -52,23 +52,35 @@ export default function Friends() {
       <section className="flex items-center gap-3 w-full">
         <button
           onClick={() => setFindFriend(false)}
-          className={`px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform ${
-            findFriends && "bg-gray-700 rounded-md hover:bg-gray-600"
+          className={`text-sm md:text-base px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform ${
+            findFriends !== false && "bg-gray-700 rounded-md hover:bg-gray-600"
           } ${
-            !findFriends && "bg-blue-700 rounded-md hover:bg-blue-600"
+            findFriends === false && "bg-blue-700 rounded-md hover:bg-blue-600"
           } focus:outline-none`}
         >
           Friends
         </button>
         <button
           onClick={() => setFindFriend(true)}
-          className={`px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform ${
-            !findFriends && "bg-gray-700 rounded-md hover:bg-gray-600"
+          className={`text-sm md:text-base px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform ${
+            findFriends !== true && "bg-gray-700 rounded-md hover:bg-gray-600"
           } ${
-            findFriends && "bg-blue-700 rounded-md hover:bg-blue-600"
+            findFriends === true && "bg-blue-700 rounded-md hover:bg-blue-600"
           } focus:outline-none`}
         >
-          Find new friend
+          Find
+        </button>
+        <button
+          onClick={() => setFindFriend("invites")}
+          className={`text-sm md:text-base px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform ${
+            findFriends !== "invites" &&
+            "bg-gray-700 rounded-md hover:bg-gray-600"
+          } ${
+            findFriends === "invites" &&
+            "bg-blue-700 rounded-md hover:bg-blue-600"
+          } focus:outline-none`}
+        >
+          Invites
         </button>
       </section>
       <div className="w-full flex flex-col items-center justify-start">
