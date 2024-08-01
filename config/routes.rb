@@ -46,4 +46,5 @@ Rails.application.routes.draw do
   delete "api/friends/:id", to: "friend_#destroy", as: :friend_destroy
 
   get "api/users/name/:id", to: "username#index", as: :username
+  get "api/users/:name", to: "user#index", as: :user
 end
