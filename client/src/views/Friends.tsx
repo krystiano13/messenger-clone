@@ -1,18 +1,20 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Searchbar } from "../components/Home/Searchbar";
 import { useNavigate } from "react-router";
 import { FriendSearchTab } from "../components/Friends/FriendSearchTab";
 import { useFriends } from "../hooks/useFriends";
 import { useUsers } from "../hooks/useUsers";
+import { useQueryClient } from "@tanstack/react-query";
 import type { Friend } from "../types/friend";
 
 export default function Friends() {
   const [findFriends, setFindFriend] = useState<boolean | "invites">(false);
   const [newFriends, setNewFriends] = useState<Friend[]>([]);
   const [filteredFriends, setFilteredFriends] = useState<Friend[]>([]);
-  
+
   const friendsQuery = useFriends(setFilteredFriends);
   const users = useUsers("");
+  const queryClient = useQueryClient();
 
   function findFriend(value: string) {
     const array = [...friendsQuery.data.friends];
@@ -23,20 +25,14 @@ export default function Friends() {
     setFilteredFriends(filteredArray);
   }
 
-  function findNewFriend(value: string) {
-    const array = [...newFriends];
-    const filteredArray = array.filter((item) =>
-      item.friend_name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-    );
-
-    setNewFriends(filteredArray);
-  }
-
   function findUsers(value: string) {
     users.mutation.mutate(value);
+    queryClient.refetchQueries({ queryKey: ["users"] });
   }
 
   const navigate = useNavigate();
+
+  console.log(users.query.data);
 
   return (
     <div className="w-full h-full flex flex-col items-center p-6 gap-6">
@@ -50,11 +46,11 @@ export default function Friends() {
       </div>
       <Searchbar
         search={
-          findFriends === true
-            ? (value: string) => findNewFriend(value)
-            : findFriends === false
+          !findFriends
             ? (value: string) => findFriend(value)
-            : (value: string) => findUsers(value)
+            : findFriends === true
+            ? (value: string) => findUsers(value)
+            : () => {}
         }
       />
       <section className="flex items-center gap-3 w-full">
@@ -92,17 +88,23 @@ export default function Friends() {
         </button>
       </section>
       <div className="w-full flex flex-col items-center justify-start">
-        {findFriends ? (
+        {findFriends === true ? (
           <>
-            {newFriends.map((item) => (
-              <FriendSearchTab
-                key={item.id}
-                friendID={item.id}
-                name={item.friend_name}
-              />
-            ))}
+            {users.query.isSuccess && (
+              <>
+                {users.query.data.users.map(
+                  (item: { id: number; username: string }) => (
+                    <FriendSearchTab
+                      key={item.id}
+                      friendID={item.id}
+                      name={item.username}
+                    />
+                  )
+                )}
+              </>
+            )}
           </>
-        ) : (
+        ) : findFriends === false ? (
           <>
             {filteredFriends.map((item) => (
               <FriendSearchTab
@@ -112,7 +114,7 @@ export default function Friends() {
               />
             ))}
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );

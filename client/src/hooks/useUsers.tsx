@@ -10,14 +10,12 @@ export function useUsers(search: string) {
   });
 
   const mutation = useMutation({
-    mutationFn: (search: string) => getUsers(search),
-    onSuccess: () => queryClient.refetchQueries({ queryKey: ["users"] }),
+    mutationFn: (search: string) => getUsers(search)
   });
 
   async function getUsers(search: string) {
     const res = await fetch(`http://127.0.0.1:3000/api/users/${search}`);
     const data = await res.json();
-    console.log(data);
     return data;
   }
 
