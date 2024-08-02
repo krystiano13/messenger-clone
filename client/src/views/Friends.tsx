@@ -27,9 +27,13 @@ export default function Friends() {
   }
 
   function findUsers(value: string) {
-    users.mutation.mutateAsync(value).then((res) => {
-      setNewFriends(res.users);
-    });
+    if (value.trim() !== "") {
+      users.mutation.mutateAsync(value).then((res) => {
+        setNewFriends(res.users);
+      });
+    } else {
+      setNewFriends([]);
+    }
   }
 
   const navigate = useNavigate();
