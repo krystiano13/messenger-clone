@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { useFriend } from "../hooks/useFriend";
 import { useFriendRemove } from "../hooks/useFriendRemove";
+import { useUser } from "../hooks/useUser";
 import { motion } from "framer-motion";
 
 export default function Friend() {
@@ -11,6 +12,7 @@ export default function Friend() {
 
   const navigate = useNavigate();
   const friend = useFriend(params.get("id") as string);
+  const userQuery = useUser(params.get("id") as string);
   const friendRemove = useFriendRemove(params.get("id") as string);
 
   function applyTransition(delay: number) {
@@ -41,7 +43,9 @@ export default function Friend() {
         animate={{ opacity: [0, 1], y: [30, 0], scale: [0.5, 1] }}
         className="text-white text-center font-medium text-3xl"
       >
-        {friend.isSuccess && friend.data.friend.friend_name}
+        {user
+          ? userQuery.isSuccess && userQuery.data.user.username
+          : friend.isSuccess && friend.data.friend.friend_name}
       </motion.h1>
       <motion.section
         transition={applyTransition(0.3)}
@@ -52,7 +56,7 @@ export default function Friend() {
           onClick={() => friendRemove.mutation.mutate()}
           className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
         >
-          Remove
+          {user ? "Invite" : "Remove"}
         </button>
         <button
           onClick={() => navigate("/friends")}
