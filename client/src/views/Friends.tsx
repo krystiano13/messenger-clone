@@ -9,12 +9,13 @@ import type { Friend } from "../types/friend";
 
 export default function Friends() {
   const [findFriends, setFindFriend] = useState<boolean | "invites">(false);
-  const [newFriends, setNewFriends] = useState<Friend[]>([]);
+  const [newFriends, setNewFriends] = useState<
+    { id: number; username: string }[]
+  >([]);
   const [filteredFriends, setFilteredFriends] = useState<Friend[]>([]);
 
   const friendsQuery = useFriends(setFilteredFriends);
   const users = useUsers("");
-  const queryClient = useQueryClient();
 
   function findFriend(value: string) {
     const array = [...friendsQuery.data.friends];
@@ -26,13 +27,12 @@ export default function Friends() {
   }
 
   function findUsers(value: string) {
-    users.mutation.mutate(value);
-    queryClient.refetchQueries({ queryKey: ["users"] });
+    users.mutation.mutateAsync(value).then((res) => {
+      setNewFriends(res.users);
+    });
   }
 
   const navigate = useNavigate();
-
-  console.log(users.query.data);
 
   return (
     <div className="w-full h-full flex flex-col items-center p-6 gap-6">
@@ -90,19 +90,15 @@ export default function Friends() {
       <div className="w-full flex flex-col items-center justify-start">
         {findFriends === true ? (
           <>
-            {users.query.isSuccess && (
-              <>
-                {users.query.data.users.map(
-                  (item: { id: number; username: string }) => (
-                    <FriendSearchTab
-                      key={item.id}
-                      friendID={item.id}
-                      name={item.username}
-                    />
-                  )
-                )}
-              </>
-            )}
+            <>
+              {newFriends.map((item: { id: number; username: string }) => (
+                <FriendSearchTab
+                  key={item.id}
+                  friendID={item.id}
+                  name={item.username}
+                />
+              ))}
+            </>
           </>
         ) : findFriends === false ? (
           <>
