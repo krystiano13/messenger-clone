@@ -47,4 +47,5 @@ Rails.application.routes.draw do
 
   get "api/users/name/:id", to: "username#index", as: :username
   get "api/users/:name", to: "user#index", as: :user
+  get "api/users/id/:id", to: "user#index_by_id", as: :user_by_id
 end

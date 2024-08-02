@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import { FriendSearchTab } from "../components/Friends/FriendSearchTab";
 import { useFriends } from "../hooks/useFriends";
 import { useUsers } from "../hooks/useUsers";
-import { useQueryClient } from "@tanstack/react-query";
 import type { Friend } from "../types/friend";
 
 export default function Friends() {

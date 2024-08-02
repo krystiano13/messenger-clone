@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { useFriend } from "../hooks/useFriend";
@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 export default function Friend() {
   const [params, setParams] = useSearchParams();
+  const [user, setUser] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const friend = useFriend(params.get("id") as string);
@@ -19,6 +20,10 @@ export default function Friend() {
   useEffect(() => {
     if (!params.get("id")) {
       navigate("/friends");
+    }
+
+    if (params.get("user")) {
+      setUser(true);
     }
   }, []);
 

@@ -7,4 +7,18 @@ class UserController < ApplicationController
             :users => @users
         }
     end
+
+    def index_by_id
+        @user = User.find(params[:id]).select("id", "username")
+
+        if @user.present?
+            return render json: {
+                :user => @user
+            }, status: :ok
+        else 
+            return render json: {
+                :user => { id: -1, username: "" }
+            }, status: 404
+        end
+    end
 end

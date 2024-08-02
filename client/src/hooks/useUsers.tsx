@@ -1,8 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 export function useUsers(search: string) {
-  const queryClient = useQueryClient();
-
   const usersQuery = useQuery({
     queryKey: ["users"],
     queryFn: () => getUsers(search),
@@ -10,7 +8,7 @@ export function useUsers(search: string) {
   });
 
   const mutation = useMutation({
-    mutationFn: (search: string) => getUsers(search)
+    mutationFn: (search: string) => getUsers(search),
   });
 
   async function getUsers(search: string) {
