@@ -43,9 +43,20 @@ export default function Friend() {
         animate={{ opacity: [0, 1], y: [30, 0], scale: [0.5, 1] }}
         className="text-white text-center font-medium text-3xl"
       >
-        {user
-          ? userQuery.isSuccess && userQuery.data.user.username
-          : friend.isSuccess && friend.data.friend.friend_name}
+        {
+          user ?
+          <>
+            {
+              userQuery.isSuccess && <>{userQuery.data.user.username}</>
+            }
+          </>
+          :
+          <>
+            {
+              friend.isSuccess && <>{friend.data.friend.friend_name}</>
+            }
+          </>
+        }
       </motion.h1>
       <motion.section
         transition={applyTransition(0.3)}

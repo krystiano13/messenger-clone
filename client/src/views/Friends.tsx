@@ -99,6 +99,7 @@ export default function Friends() {
                   key={item.id}
                   friendID={item.id}
                   name={item.username}
+                  userMode
                 />
               ))}
             </>
@@ -110,6 +111,7 @@ export default function Friends() {
                 key={item.id}
                 friendID={item.id}
                 name={item.friend_name}
+                userMode={false}
               />
             ))}
           </>

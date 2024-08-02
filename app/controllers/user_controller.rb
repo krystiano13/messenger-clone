@@ -9,7 +9,7 @@ class UserController < ApplicationController
     end
 
     def index_by_id
-        @user = User.find(params[:id]).select("id", "username")
+        @user = User.find(params[:id])
 
         if @user.present?
             return render json: {
